@@ -30,7 +30,10 @@ class Quartier{
     }
 
     public function __toString() {
-        return "Quartier{".$this->idQuartier.",".$this->nomQuartier.",".$this->coordonneeQuartier."}";
+        return "Quartier{".
+                $this->idQuartier.",".
+                $this->nomQuartier.",".
+                $this->coordonneeQuartier."}";
     }
     
     public function loadFromObject($result){

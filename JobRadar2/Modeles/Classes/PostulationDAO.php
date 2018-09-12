@@ -7,7 +7,9 @@ class PostulationDAO{
 	
 	public function create($object){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("INSERT INTO postulation values (:idEmploi, :idCompte,:dateInscrit)");
+        $pstmt = $db->prepare("INSERT INTO postulation values (:idEmploi,"
+                . ":idCompte,"
+                . ":dateInscrit)");
         return $pstmt->execute(array(
                 ':idEmploi' => $object->getIdEmploi(),
                 ':idCompte' => $object->getIdCompte(),
@@ -60,7 +62,10 @@ class PostulationDAO{
     
     public function findBy2Id($idEmploi, $idCompte){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("SELECT * FROM postulation WHERE idEmploi = :idEmploi AND idCompte = :idCompte");
+        $pstmt = $db->prepare("SELECT * FROM postulation "
+                . "WHERE idEmploi = :idEmploi"
+                . "AND idCompte = :idCompte"
+                );
         $pstmt->execute(array(
                 ':idEmploi' => $idEmploi,
                 ':idCompte' => $idCompte
@@ -76,7 +81,10 @@ class PostulationDAO{
 	
 	public function update($object){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("UPDATE postulation SET idCompte = :idCompte, dateInscrit = :dateInscrit WHERE idEmploi = :idEmploi");
+        $pstmt = $db->prepare("UPDATE postulation SET idCompte = :idCompte,"
+                . " dateInscrit = :dateInscrit"
+                . " WHERE idEmploi = :idEmploi"
+                );
         return $pstmt->execute(array(
             ':idEmploi' => $object->getIdEmploi(),
             ':idCompte' => $object->getIdCompte(),
@@ -85,7 +93,10 @@ class PostulationDAO{
     }
 	public function delete($idEmploi, $idCompte){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("DELETE FROM postulation WHERE idEmploi = :idEmploi AND idCompte = :idCompte");
+        $pstmt = $db->prepare("DELETE FROM postulation "
+                . "WHERE idEmploi = :idEmploi "
+                . "AND idCompte = :idCompte"
+                );
         return $pstmt->execute(array(
                     ':idEmploi'=>$idEmploi,
                     ':idCompte'=>$idCompte

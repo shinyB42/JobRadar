@@ -21,7 +21,9 @@ class QuartierDAO{
     
     public function findById($idQuartier){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("SELECT * FROM quartier WHERE idQuartier = :idQuartier");
+        $pstmt = $db->prepare("SELECT * FROM quartier "
+                . "WHERE idQuartier = :idQuartier"
+                );
         $pstmt->execute(array(':idQuartier' => $idQuartier));
         if ($result = $pstmt->fetch(PDO::FETCH_OBJ)){
             $quartier = new Quartier();

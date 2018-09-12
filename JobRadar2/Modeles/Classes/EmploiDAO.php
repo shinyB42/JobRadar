@@ -6,7 +6,18 @@ include_once 'Modeles/Classes/Liste.php';
 class EmploiDAO{
     public function create($object){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("INSERT INTO emploi values (:idEmploi, :idCompteEmployeur,:titreEmploi,:descriptionEmploi,:compagnieEmploi,:nombrePosteEmploi,:emploiACombler,:lieuEmploi,:idQuartierEmploi,:dateHeureDebutEmploi,:dateHeureFinEmploi)");
+        $pstmt = $db->prepare("INSERT INTO emploi values (:idEmploi, "
+                . ":idCompteEmployeur,"
+                . ":titreEmploi,"
+                . ":descriptionEmploi,"
+                . ":compagnieEmploi,"
+                . ":nombrePosteEmploi,"
+                . ":emploiACombler,"
+                . ":lieuEmploi,"
+                . ":idQuartierEmploi,"
+                . ":dateHeureDebutEmploi,"
+                . ":dateHeureFinEmploi)"
+                );
         return $pstmt->execute(array(
                 ':idEmploi' => $object->getIdEmploi(),
                 ':idCompteEmployeur' => $object->getIdCompteEmployeur(),
@@ -53,7 +64,9 @@ class EmploiDAO{
     public function findByIdEmployeur($idCompteEmployeur){
         $db = Database::getInstance();
 		$emplois = [];
-        $pstmt = $db->prepare("SELECT * FROM emploi WHERE idCompteEmployeur = :idCompteEmployeur");
+        $pstmt = $db->prepare("SELECT * FROM emploi WHERE idCompteEmployeur = "
+                . ":idCompteEmployeur"
+                );
         $pstmt->execute(array(':idCompteEmployeur' => $idCompteEmployeur));
         while($result = $pstmt->fetch(PDO::FETCH_OBJ)){
             $emploi = new Emploi();
@@ -67,7 +80,19 @@ class EmploiDAO{
     
     public function update($object){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("UPDATE emploi SET idCompteEmployeur = :idCompteEmployeur, titreEmploi = :titreEmploi, descriptionEmploi = :descriptionEmploi, compagnieEmploi = :compagnieEmploi, nombrePosteEmploi = :nombrePosteEmploi, emploiACombler = :emploiACombler, lieuEmploi = :lieuEmploi, idQuartierEmploi = :idQuartierEmploi, dateHeureDebutEmploi = :dateHeureDebutEmploi, dateHeureFinEmploi = :dateHeureFinEmploi  WHERE idEmploi = :idEmploi");
+        $pstmt = $db->prepare("UPDATE emploi SET "
+                . "idCompteEmployeur = :idCompteEmployeur, "
+                . "titreEmploi = :titreEmploi, "
+                . "descriptionEmploi = :descriptionEmploi, "
+                . "compagnieEmploi = :compagnieEmploi, "
+                . "nombrePosteEmploi = :nombrePosteEmploi, "
+                . "emploiACombler = :emploiACombler, "
+                . "lieuEmploi = :lieuEmploi, "
+                . "idQuartierEmploi = :idQuartierEmploi, "
+                . "dateHeureDebutEmploi = :dateHeureDebutEmploi, "
+                . "dateHeureFinEmploi = :dateHeureFinEmploi  "
+                . "WHERE idEmploi = :idEmploi"
+                );
         $result = $pstmt->execute(array(
             ':idEmploi' => $object->getIdEmploi(),
             ':idCompteEmployeur' => $object->getIdCompteEmployeur(),
@@ -88,7 +113,9 @@ class EmploiDAO{
     
     public function updateEmploisDisponibles($idEmploi){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("UPDATE emploi SET emploiACombler = emploiACombler - 1 WHERE idEmploi = :idEmploi");
+        $pstmt = $db->prepare("UPDATE emploi SET emploiACombler = emploiACombler - 1 "
+                . "WHERE idEmploi = :idEmploi"
+                );
         $result = $pstmt->execute(array(':idEmploi' => $idEmploi));
         Database::close();
         return $result;

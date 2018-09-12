@@ -19,8 +19,10 @@ class DefaultAction implements Action{
             $idCompte = $_SESSION["connected"]->getNumeroCompte();
             $idQuartierCompte = $_SESSION["connected"]->getIdQuartierCompte();
         }else{
-            $idCompte = 1337; //compte pour les visiteurs on a besoin que ce compte existe
-            $idQuartierCompte = 31; //pour raisons du triage on met le quartier par defaut au centreville de montreal
+            //compte pour les visiteurs on a besoin que ce compte existe
+            $idCompte = 1337;
+            //pour raisons du triage on met le quartier par defaut au centreville de montreal
+            $idQuartierCompte = 31; 
         }
         
         $ListeAfficher=[];
@@ -49,10 +51,17 @@ class DefaultAction implements Action{
             }
             $idCompteEmployeur = $emploi->getIdCompteEmployeur();
             
-            if ($echeanceFinale>0 and $restant > 0 and $echeance>0 and $dejaPostuler == FALSE and $idCompteEmployeur != $idCompte){
+            //toutes les contraintes pour afficher seulement les postes voulu
+            if ($echeanceFinale>0 and 
+                    $restant > 0 and 
+                    $echeance>0 and 
+                    $dejaPostuler == FALSE and 
+                    $idCompteEmployeur != $idCompte){
             
                 $dbQuartierEmploi = new QuartierDAO();
-                $quartierEmploi = $dbQuartierEmploi->findById($emploi->getIdQuartierEmploi());
+                $quartierEmploi = $dbQuartierEmploi->findById(
+                        $emploi->getIdQuartierEmploi()
+                        );
                 $coordEmploi = $quartierEmploi->getCoordonneeQuartier();
                 $distance = $this->priorite($coordCompte,$coordEmploi);
                 $Listing = new Listing();
@@ -60,9 +69,16 @@ class DefaultAction implements Action{
                 $Listing->setEmploi($emploi->getIdEmploi());
                 $Listing->setPrioritee($distance);
                 array_push($ListeAfficher, $Listing);
-            }else if ($echeanceFinale>0 and $restant > 0 and $echeance<=0 and $dejaPostuler == FALSE and $idCompteEmployeur != $idCompte){
+            //les conditions pour afficher un poste avec une priorité augmenté    
+            }else if ($echeanceFinale>0 and 
+                    $restant > 0 and 
+                    $echeance<=0 and 
+                    $dejaPostuler == FALSE and 
+                    $idCompteEmployeur != $idCompte){
                 $dbQuartierEmploi = new QuartierDAO();
-                $quartierEmploi = $dbQuartierEmploi->findById($emploi->getIdQuartierEmploi());
+                $quartierEmploi = $dbQuartierEmploi->findById(
+                        $emploi->getIdQuartierEmploi()
+                        );
                 $coordEmploi = $quartierEmploi->getCoordonneeQuartier();
                 $distance = $this->priorite($coordCompte,$coordEmploi);
                 $Listing = new Listing();
@@ -79,7 +95,8 @@ class DefaultAction implements Action{
     }
     
    
-        
+//fonction utilisé pour avoir un metric pour le triage des emplois afficher, 
+//retourne la distance entre 2 coordonnes
     public function priorite($coord1, $coord2){
 /* 
  * source: https://www.movable-type.co.uk/scripts/latlong.html

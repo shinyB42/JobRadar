@@ -26,7 +26,7 @@ class PostulerAction implements Action{
                 
                 $redirection= new DefaultAction();
                 return $redirection->execute();
-            }else{ //1ere etape lorquon postule sans un compte
+            }else{ //1ere etape lorqu'on postule sans un compte
                 $_SESSION["postulerID"]= $_REQUEST["id"];
                 $_REQUEST["postulerTemp"]="true";
                 
@@ -34,7 +34,8 @@ class PostulerAction implements Action{
                 $redirection = new CreerCompteAction();
                 return $redirection->execute();
             }
-        }else{ // 2eme etape de postule sans compte, apres la creation du compte $_SESSION est set
+        // 2eme etape de postule sans compte, apres la creation du compte $_SESSION est set    
+        }else{ 
             $idEmploi = $_SESSION["postulerID"];
             $idCompte= $_SESSION["connected"]->getNumeroCompte();
             $dateNow = date("Y-m-d");

@@ -19,7 +19,9 @@ class DetailCompteAction implements Action {
                 $emploisPostulerBientot=[];
                 $emploisPostulerActif=[];
                 $emploisPostulerPasse=[];
-                $postulationsDAO = $dbPostulations->findByCompte($_SESSION["connected"]->getNumeroCompte());
+                $postulationsDAO = $dbPostulations->findByCompte(
+                        $_SESSION["connected"]->getNumeroCompte()
+                        );
                 foreach($postulationsDAO as $postulation){
                     $emploi = $dbEmplois->findById($postulation->getIdEmploi());
                     $dateFin=$emploi->getDateHeureFinEmploi();
@@ -38,7 +40,9 @@ class DetailCompteAction implements Action {
                 $emploiCreerBientot=[];
                 $emploiCreerActif=[];
                 $emploiCreerPasse=[];
-                $EmploisDAO = $dbEmplois->findByIdEmployeur($_SESSION["connected"]->getNumeroCompte());
+                $EmploisDAO = $dbEmplois->findByIdEmployeur(
+                        $_SESSION["connected"]->getNumeroCompte()
+                        );
                 foreach ($EmploisDAO as $creer){
                     $dateFin=$creer->getDateHeureFinEmploi();
                     $dateDebut=$creer->getDateHeureDebutEmploi();

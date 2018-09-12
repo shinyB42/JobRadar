@@ -30,7 +30,10 @@ class Postulation{
     }
 
     public function __toString() {
-        return "Postulation{".$this->idEmploi.",".$this->idCompte.",".$this->dateInscrit."}";
+        return "Postulation{".
+                $this->idEmploi.",".
+                $this->idCompte.",".
+                $this->dateInscrit."}";
     }
     
     public function loadFromObject($result){

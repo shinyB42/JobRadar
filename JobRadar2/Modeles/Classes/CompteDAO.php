@@ -6,7 +6,16 @@ include_once 'Modeles/Classes/Liste.php';
 class CompteDAO{
     public function create($object){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("INSERT INTO compte values (:numeroCompte, :username,:password,:nomCompte,:prenomCompte,:adresseCompte,:idQuartierCompte,:telephoneCompte,:emailCompte)");
+        $pstmt = $db->prepare("INSERT INTO compte values (:numeroCompte, "
+                . ":username,"
+                . ":password,"
+                . ":nomCompte,"
+                . ":prenomCompte,"
+                . ":adresseCompte,"
+                . ":idQuartierCompte,"
+                . ":telephoneCompte,"
+                . ":emailCompte)"
+                );
         return $pstmt->execute(array(
                 ':numeroCompte' => $object->getNumeroCompte(),
                 ':username' => $object->getUsername(),
@@ -61,7 +70,16 @@ class CompteDAO{
     }
     public function update($object){
         $db = Database::getInstance();
-        $pstmt = $db->prepare("UPDATE compte SET username = :username, password = :password, nomCompte = :nomCompte, prenomCompte = :prenomCompte, adresseCompte = :adresseCompte, idQuartierCompte = :idQuartierCompte, telephoneCompte = :telephoneCompte, emailCompte = :emailCompte WHERE numeroCompte = :numeroCompte");
+        $pstmt = $db->prepare("UPDATE compte SET username = :username,"
+                . " password = :password,"
+                . " nomCompte = :nomCompte,"
+                . " prenomCompte = :prenomCompte,"
+                . " adresseCompte = :adresseCompte,"
+                . " idQuartierCompte = :idQuartierCompte,"
+                . " telephoneCompte = :telephoneCompte,"
+                . " emailCompte = :emailCompte "
+                . "WHERE numeroCompte = :numeroCompte"
+                );
         return $pstmt->execute(array(
             ':numeroCompte'=>$object->getNumeroCompte(),
             ':username'=>$object->getUsername(),

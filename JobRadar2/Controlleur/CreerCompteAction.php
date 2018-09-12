@@ -31,9 +31,12 @@ class CreerCompteAction implements Action{
         $dbcompte->create($compte);
         if (isset($_REQUEST["postulerTemp2"])){
             session_start();
-            echo "on est arrive de la page postuler";
             
-            $compte->setNumeroCompte($dbcompte->findByUsername($compte->getUsername())->getNumeroCompte()); // asser farfelu comme solution puisque cest la base de donne qui attribue le numero de compte
+            // asser farfelu comme solution puisque cest la base de donne qui 
+            // attribue le numero de compte
+            $compte->setNumeroCompte($dbcompte->findByUsername(
+                                    $compte->getUsername())->getNumeroCompte()
+            ); 
             $_SESSION["connected"]=$compte;
             $redirection = new PostulerAction();
             return $redirection->execute();

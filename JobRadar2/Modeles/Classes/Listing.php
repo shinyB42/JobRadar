@@ -33,8 +33,9 @@ class Listing{
     }
 
 
-    
-   static function cmp_obj($a, $b) //source: http://php.net/manual/en/function.usort.php
+    //pour le triage fait dans la classe DefaultAction
+    //source: http://php.net/manual/en/function.usort.php
+   static function cmp_obj($a, $b) 
     {
         $al = strtolower($a->prioritee);
         $bl = strtolower($b->prioritee);
